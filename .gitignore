@@ -1,0 +1,4 @@
+*.env
+
+global_configs/mainnet.json
+global_configs/testnet.json

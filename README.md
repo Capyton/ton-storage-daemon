@@ -1,0 +1,1 @@
+# TON Storage daemon

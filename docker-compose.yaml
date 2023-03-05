@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  storage-daemon:
+    image: "meamone/ton-storage-daemon:latest"
+    container_name: ton-storage-daemon.storage-daemon
+    restart: "unless-stopped"
+    build:
+      context: .
+      dockerfile: storage-daemon/Dockerfile
+    environment:
+      TON_STORAGE_ADNL_PORT: ${TON_STORAGE_ADNL_PORT:-3333}
+      TON_STORAGE_CONTROL_PORT: ${TON_STORAGE_CONTROL_PORT:-5555}
+      TON_STORAGE_VERBOSITY_LEVEL: ${TON_STORAGE_VERBOSITY_LEVEL:-3}
+      TON_STORAGE_GLOBAL_CONFIG: ${TON_STORAGE_GLOBAL_CONFIG:?}
+      TON_STORAGE_DATABASE_NAME: ${TON_STORAGE_DATABASE_NAME:-ton-storage}
+      TON_PUBLIC_IP: ${TON_PUBLIC_IP:?}
+    volumes:
+      - ./global_configs:/usr/src/app/global_configs:ro
+      - ton-storage-daemon.storage-daemon.data:/data:rw
+
+volumes:
+  ton-storage-daemon.storage-daemon.data: {}
